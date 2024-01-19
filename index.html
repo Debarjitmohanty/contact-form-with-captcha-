@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attractive Form with Custom CAPTCHA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #captcha-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    #captcha-image {
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #captcha-input {
+      width: 150px;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="contactForm">
+    <h1>Contact Form</h1>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <div id="captcha-container">
+      <img id="captcha-image" src="" alt="CAPTCHA">
+      <input type="text" id="captcha-input" name="captcha" placeholder="Enter CAPTCHA" required>
+      <button type="button" onclick="validateCaptcha()">Refresh CAPTCHA</button>
+    </div>
+
+    <button type="button" onclick="validateCaptcha()">Send</button>
+  </form>
+
+  <script>
+    // Generate random CAPTCHA
+    function generateCaptcha() {
+      var captcha = Math.random().toString(36).substring(7);
+      document.getElementById('captcha-image').src = 'https://dummyimage.com/150x50/000/fff&text=' + captcha;
+    }
+
+    // Validate CAPTCHA and redirect to another page
+    function validateCaptcha() {
+      var userInput = document.getElementById('captcha-input').value;
+      var captchaValue = document.getElementById('captcha-image').src.split('=')[1];
+
+      if (userInput === captchaValue) {
+        alert('CAPTCHA is valid! Redirecting to another page...');
+        // Redirect to another page (you can replace 'anotherpage.html' with the actual page URL)
+        window.location.href = 'anotherpage.html';
+      } else {
+        alert('Invalid CAPTCHA. Please try again.');
+        // Generate a new CAPTCHA for the user to try again
+        generateCaptcha();
+      }
+    }
+
+    // Initial CAPTCHA generation
+    generateCaptcha();
+  </script>
+
+</body>
+</html>
